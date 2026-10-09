@@ -1,0 +1,12 @@
+{
+  "name": "deepseek-private-chat",
+  "private": true,
+  "version": "1.0.0",
+  "type": "module",
+  "scripts": {
+    "test": "node tests/security.test.mjs",
+    "preview": "node tools/preview.mjs",
+    "deploy:server": "npx wrangler@4 deploy --config server/wrangler.toml",
+    "dev:server": "npx wrangler@4 dev --config server/wrangler.toml"
+  }
+}

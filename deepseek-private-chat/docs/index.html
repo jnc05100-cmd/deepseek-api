@@ -1,0 +1,81 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="DeepSeek와 대화하는 나만의 개인 채팅 공간.">
+  <meta name="robots" content="noindex, nofollow">
+  <meta name="referrer" content="no-referrer">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self'; connect-src 'self' https: http://localhost:* http://127.0.0.1:*; img-src 'self' data:; object-src 'none'; base-uri 'none'; form-action 'none'">
+  <meta name="color-scheme" content="dark">
+  <title>여백 — 나만의 AI</title>
+  <link rel="icon" href="./favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="./style.css">
+  <script src="./config.js" defer></script>
+  <script src="./app.js" defer></script>
+</head>
+<body>
+  <svg class="sprite" aria-hidden="true" xmlns="http://www.w3.org/2000/svg">
+    <symbol id="i-chat" viewBox="0 0 24 24"><path d="M5 4h14a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2H9l-6 3V6a2 2 0 0 1 2-2Z"/><path d="M7 9h10M7 13h6"/></symbol>
+    <symbol id="i-plus" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></symbol>
+    <symbol id="i-sliders" viewBox="0 0 24 24"><path d="M4 7h6m4 0h6M4 17h10m4 0h2"/><circle cx="12" cy="7" r="2"/><circle cx="16" cy="17" r="2"/></symbol>
+    <symbol id="i-lock" viewBox="0 0 24 24"><rect x="5" y="10" width="14" height="11" rx="3"/><path d="M8 10V7a4 4 0 0 1 8 0v3M12 14v3"/></symbol>
+    <symbol id="i-send" viewBox="0 0 24 24"><path d="m5 12 7-7 7 7M12 5v14"/></symbol>
+    <symbol id="i-spark" viewBox="0 0 24 24"><path d="m12 2 3 7 7 3-7 3-3 7-3-7-7-3 7-3Z"/></symbol>
+    <symbol id="i-code" viewBox="0 0 24 24"><path d="m7 7-5 5 5 5m10-10 5 5-5 5m-4-14-2 18"/></symbol>
+    <symbol id="i-pen" viewBox="0 0 24 24"><path d="m15 4 5 5M4 20l5-1L21 7l-4-4L5 15Z"/></symbol>
+    <symbol id="i-copy" viewBox="0 0 24 24"><rect x="8" y="8" width="12" height="12" rx="2"/><path d="M16 8V4H4v12h4"/></symbol>
+    <symbol id="i-stop" viewBox="0 0 24 24"><rect x="6" y="6" width="12" height="12" rx="2"/></symbol>
+  </svg>
+  <div class="app-shell">
+    <aside class="sidebar" aria-label="대화 메뉴">
+      <a class="brand" href="./" aria-label="여백 홈"><span class="brand-mark"><svg><use href="#i-chat"/></svg></span><span>여백<span class="brand-caption">PERSONAL AI</span></span></a>
+      <button class="new-chat" id="new-chat"><svg><use href="#i-plus"/></svg>새 대화</button>
+      <div class="sidebar-section"><span class="eyebrow">이 대화</span><div class="current-chat"><svg><use href="#i-chat"/></svg><span id="chat-title">아직 시작하지 않은 대화</span></div></div>
+      <div class="sidebar-bottom">
+        <div class="privacy-note"><svg><use href="#i-lock"/></svg><span>대화는 이 탭에서만 유지됩니다.</span></div>
+        <button class="settings-button" id="settings"><svg><use href="#i-sliders"/></svg>연결 설정</button>
+        <div class="profile"><span class="avatar">나</span><div><strong>나의 공간</strong><span>개인용 워크스페이스</span></div><button id="lock" class="icon-button" aria-label="잠그기" title="잠그기"><svg><use href="#i-lock"/></svg></button></div>
+      </div>
+    </aside>
+    <main class="workspace">
+      <header class="topbar"><div class="model-label"><strong>DeepSeek</strong><span>개인 채팅</span></div><button class="connection-chip" id="connection">연결 설정 필요</button></header>
+      <section class="conversation" id="conversation" aria-label="대화">
+        <div class="welcome" id="welcome">
+          <div class="welcome-mark"><svg><use href="#i-spark"/></svg></div>
+          <p class="eyebrow">YOUR OWN SPACE</p>
+          <h1>생각을 펼칠 시간.</h1>
+          <p class="welcome-description">궁금한 것부터 떠오른 아이디어까지.<br>편하게 질문해 보세요.</p>
+          <div class="suggestions">
+            <button data-prompt="내 아이디어를 함께 정리해 줘. 먼저 어떤 정보를 알려주면 좋을까?"><svg><use href="#i-spark"/></svg><strong>아이디어 정리</strong><span>흩어진 생각을 한눈에</span></button>
+            <button data-prompt="코드 작성과 오류 해결을 도와줘. 먼저 어떤 정보를 알려주면 좋을까?"><svg><use href="#i-code"/></svg><strong>코드 도움</strong><span>막힌 부분을 함께 해결</span></button>
+            <button data-prompt="내 글을 자연스럽게 다듬어 줘. 글을 보내면 의미와 말투를 살려서 수정해 줘."><svg><use href="#i-pen"/></svg><strong>글 다듬기</strong><span>내 말투를 더 또렷하게</span></button>
+          </div>
+        </div>
+        <div class="messages" id="messages" role="log" aria-live="polite" aria-relevant="additions"></div>
+      </section>
+      <footer class="composer-area">
+        <div class="notice" id="notice" role="status" hidden></div>
+        <form id="chat-form" class="composer">
+          <label class="sr-only" for="prompt">질문 입력</label>
+          <textarea id="prompt" rows="1" placeholder="무엇이 궁금한가요?" autocomplete="off"></textarea>
+          <div class="composer-bottom"><span id="compose-status">Enter로 전송 · Shift + Enter로 줄바꿈</span><button id="send" class="send-button" type="submit" aria-label="질문 보내기" disabled><svg><use href="#i-send"/></svg></button></div>
+        </form>
+        <p class="disclaimer">AI의 답변은 틀릴 수 있습니다. 중요한 내용은 확인해 주세요.</p>
+      </footer>
+    </main>
+  </div>
+  <dialog id="connect-dialog">
+    <form id="connect-form">
+      <div class="dialog-heading"><span class="dialog-icon"><svg><use href="#i-lock"/></svg></span><button class="icon-button" id="close-dialog" type="button" aria-label="설정 닫기">×</button></div>
+      <h2>나의 공간에 연결</h2><p class="dialog-description">서버 주소와 개인 접속 비밀번호를 입력해 주세요.</p>
+      <label for="server-url">서버 주소</label><input id="server-url" type="url" required placeholder="https://my-deepseek-chat.example.workers.dev" autocomplete="url" spellcheck="false">
+      <label for="access-password">개인 접속 비밀번호</label><input id="access-password" type="password" required autocomplete="off" placeholder="서버에 등록한 접속 비밀번호">
+      <p class="field-note">DeepSeek 키는 이곳에 입력하지 않습니다.<br>접속 비밀번호는 탭을 닫거나 잠그면 지워집니다.</p>
+      <p class="dialog-error" id="dialog-error" role="alert" hidden></p>
+      <button class="primary-button" id="connect-submit" type="submit">연결하기</button>
+    </form>
+  </dialog>
+  <noscript>대화를 시작하려면 브라우저에서 JavaScript를 활성화해 주세요.</noscript>
+</body>
+</html>

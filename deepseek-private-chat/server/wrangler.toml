@@ -1,0 +1,13 @@
+name = "my-deepseek-chat"
+main = "worker.mjs"
+compatibility_date = "2026-10-09"
+workers_dev = true
+
+[vars]
+# Replace with your Pages ORIGIN, without a repository path or trailing slash.
+ALLOWED_ORIGIN = "https://YOUR-GITHUB-NAME.github.io"
+DEEPSEEK_MODEL = "deepseek-flash"
+# Provider's documented maximum as of 2026-10-09; this is not unlimited.
+DEEPSEEK_MAX_TOKENS = "393216"
+
+# Never put keys here. Set DEEPSEEK_API_KEY and PERSONAL_ACCESS_TOKEN as secrets.
